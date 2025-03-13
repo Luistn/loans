@@ -1,0 +1,109 @@
+.pagina-principal {
+  background-color: #f0f0f0;  
+  padding: 20px;
+  font-family: Arial, sans-serif; 
+}
+
+.navegacao-meses {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.navegacao-meses h2 {
+  font-size: 16px; 
+  text-align: center;
+  margin: 0;
+  color: black;
+}
+
+.tabela-emprestimos {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2px;
+}
+
+.tabela-emprestimos th, .tabela-emprestimos td {
+  border: 1px solid #ccc;
+  padding: 5px;
+  text-align: center;
+  font-size: 14px;  
+}
+
+.tabela-emprestimos tr:nth-child(even) {
+  background-color: #f9f9f9;  
+}
+
+.riscado {
+  text-decoration: line-through;
+  color: gray;
+}
+
+small {
+  font-size: 8px;  
+}
+
+.formulario-emprestimo input {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;  
+}
+
+button {
+  font-size: 12px;  
+  padding: 3px 0px;
+  margin: 1px;
+  cursor: pointer;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+  background-color: #45a049;
+  transform: scale(1.05); 
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+button.excluir {
+  background-color: #f44336;  
+}
+
+button.excluir:hover {
+  background-color: #d32f2f; 
+}
+
+button.pago {
+  background-color: #2196F3;  
+}
+
+button.pago:hover {
+  background-color: #1976D2;
+}
+
+button.jurosPago {
+  background-color: #FF9800; 
+}
+
+button.jurosPago:hover {
+  background-color: #FB8C00;
+}
+
+.contador-dias {
+  color: #ff5722;  
+  font-weight: bold;
+}
+
+.contador-dias.vencido {
+  color: #f44336; 
+}

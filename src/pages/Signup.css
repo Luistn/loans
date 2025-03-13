@@ -1,0 +1,72 @@
+/* Fundo da página (cinza) */
+.signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #e0e0e0; /* Cinza claro */
+}
+
+/* Fundo do formulário (preto) */
+.signup-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  background-color: #000; /* Preto */
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5); /* Sombra para dar destaque */
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 320px;
+}
+
+.signup-error {
+  color: red;
+  font-size: 14px;
+}
+
+input {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #444;
+  border-radius: 4px;
+  background-color: #222; /* Fundo dos inputs */
+  color: #fff;
+}
+
+input::placeholder {
+  color: #bbb;
+}
+
+button {
+  padding: 12px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Botão "Voltar para o Login" com cor diferente */
+.go-to-login {
+  margin-top: 10px;
+  background-color: #f44336;
+  color: white;
+}
+
+.go-to-login:hover {
+  background-color: #d32f2f;
+}
