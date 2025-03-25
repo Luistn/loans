@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../firebase';
 import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, getDoc } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth'; 
+import { getAuth, signOut } from 'firebase/auth'; 
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
 
@@ -126,20 +126,34 @@ const Home = () => {
 
   const editarEmprestimo = (id) => {
     const emprestimo = emprestimos.find((emprestimo) => emprestimo.id === id);
-    setNovoEmprestimo(emprestimo);  // Preenche o formulário com os dados do empréstimo
-    setEditarId(id);  
+    setNovoEmprestimo({
+      nome: emprestimo.nome,
+      valor: emprestimo.valor,
+      juros: emprestimo.juros,
+      vencimento: emprestimo.vencimento,
+      pago: emprestimo.pago
+    });
+    setEditarId(id);  // Define o id do empréstimo em edição
   };
 
   const salvarEdicao = async () => {
+    // Calcular o total baseado no valor e juros
+    const total = parseFloat(novoEmprestimo.valor) + (parseFloat(novoEmprestimo.valor) * parseFloat(novoEmprestimo.juros) / 100);
+
     const refEmprestimo = doc(db, 'loans', editarId);
     await updateDoc(refEmprestimo, {
       nome: novoEmprestimo.nome,
       valor: novoEmprestimo.valor,
       juros: novoEmprestimo.juros,
-      vencimento: novoEmprestimo.vencimento
+      vencimento: novoEmprestimo.vencimento,
+      total: total,  // Atualizando o total após recalcular
     });
-    setEditarId(null);  // Limpa o id de edição
-    setNovoEmprestimo({ nome: '', valor: '', juros: '', vencimento: '', pago: false });  
+
+    // Limpar os estados após salvar a edição
+    setEditarId(null);
+    setNovoEmprestimo({ nome: '', valor: '', juros: '', vencimento: '', pago: false });
+
+    // Recarregar os empréstimos
     carregarEmprestimos();
   };
 
@@ -154,6 +168,16 @@ const Home = () => {
     return diferenca > 0 ? `${diferenca} dias` : 'Vencido';
   };
 
+  const handleLogout = async () => {
+    const auth = getAuth();
+    try {
+      await signOut(auth);  // Efetua o logout
+      navigate('/login');   // Redireciona para a página de login
+    } catch (error) {
+      console.error('Erro ao sair:', error);
+    }
+  };
+
   return (
     <div className="pagina-principal">
       <div className="navegacao-meses">
@@ -162,9 +186,10 @@ const Home = () => {
         <button onClick={() => setMes((mes + 1) % 12)}>&gt;</button>
       </div>
 
-      {/* Link para "Minha Conta" */}
+      {/* Divisão dos botões "Minha Conta" e "Sair" */}
       <div className="minha-conta-container">
         <button className="minha-conta" onClick={() => navigate('/minha-conta')}>Minha Conta</button>
+        <button className="sair" onClick={handleLogout}>Sair</button>
       </div>
 
       <div className="formulario-emprestimo">
@@ -217,8 +242,9 @@ const Home = () => {
       </table>
 
       <div className="total-mes">Total do Mês: R$ {calcularTotalMes()}</div>
+      
     </div>
   );
 };
 
-
+export default Home;

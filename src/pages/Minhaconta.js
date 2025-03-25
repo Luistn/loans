@@ -15,13 +15,18 @@ const MinhaConta = () => {
       try {
         await updatePassword(user, novaSenha);
         alert('Senha alterada com sucesso!');
-        navigate('/home');  // Redireciona para a página inicial
+        navigate('/home');
       } catch (error) {
         setErro('Erro ao alterar senha: ' + error.message);
       }
     } else {
       setErro('Por favor, insira uma nova senha');
     }
+  };
+
+  // Função para voltar à página inicial
+  const handleVoltarParaHome = () => {
+    navigate('/home');
   };
 
   return (
@@ -35,6 +40,10 @@ const MinhaConta = () => {
       />
       <button onClick={handleAlterarSenha}>Alterar Senha</button>
       {erro && <p>{erro}</p>}
+      {/* Novo botão para voltar à Home */}
+      <button onClick={handleVoltarParaHome} style={{ marginTop: '10px' }}>
+        Voltar para Home
+      </button>
     </div>
   );
 };

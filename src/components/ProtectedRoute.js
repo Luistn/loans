@@ -1,17 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { auth } from '../firebase';
+import { getAuth } from 'firebase/auth';
 
-// Componente de rota protegida
 const ProtectedRoute = ({ children }) => {
-  const user = auth.currentUser;
+  const [loading, setLoading] = useState(true); // Adiciona o estado de carregamento
+  const [user, setUser] = useState(null); // Armazena o estado do usuário
+  const auth = getAuth();
 
-  // Se o usuário não estiver logado, redireciona para o login
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user); // Atualiza o estado do usuário
+      setLoading(false); // Define que o carregamento foi concluído
+    });
+
+    // Limpa o listener quando o componente for desmontado
+    return () => unsubscribe();
+  }, [auth]);
+
+  // Enquanto o estado de autenticação está carregando
+  if (loading) {
+    return <div>Carregando...</div>; // Você pode personalizar isso, como um spinner de carregamento
+  }
+
+  // Se o usuário não estiver autenticado, redireciona para a página de login
   if (!user) {
     return <Navigate to="/" />;
   }
 
-  // Caso contrário, exibe os filhos da rota (a página protegida)
+  // Caso contrário, renderiza a rota protegida
   return children;
 };
 

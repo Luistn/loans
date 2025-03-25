@@ -47,7 +47,7 @@ small {
 .formulario-emprestimo input {
   width: 100%;
   padding: 10px;
-  margin: 5px 0;
+  margin: 1px 0;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;  
@@ -106,4 +106,38 @@ button.jurosPago:hover {
 
 .contador-dias.vencido {
   color: #f44336; 
+}
+
+.minha-conta-container {
+  display: flex; 
+  justify-content: flex-end;
+  gap: 0px;  
+  margin: 1px 0; 
+}
+
+.minha-conta, .sair {
+  padding: 1px 22px;
+  font-size: 12px;
+  cursor: pointer;
+  border: none;
+  border-radius: 10x;
+  transition: background-color 0.3s ease;
+}
+
+.minha-conta {
+  background-color: #4CAF50; 
+  color: white;
+}
+
+.minha-conta:hover {
+  background-color: #45a049; 
+}
+
+.sair {
+  background-color: #f44336; 
+  color: white;
+}
+
+.sair:hover {
+  background-color: #e53935; 
 }
